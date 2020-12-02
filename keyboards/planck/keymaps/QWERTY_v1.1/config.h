@@ -13,5 +13,6 @@
   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
 #define ORYX_CONFIGURATOR
-#define FIRMWARE_VERSION u8"WWly4/D5zJ0"
+#define AUTO_SHIFT_TIMEOUT 200
+#define FIRMWARE_VERSION u8"WWly4/M4d7L"
 #define RGB_MATRIX_STARTUP_SPD 60
