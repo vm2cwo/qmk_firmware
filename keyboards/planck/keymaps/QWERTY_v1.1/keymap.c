@@ -45,6 +45,7 @@
 enum planck_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
   ST_MACRO_0,
+  ST_MACRO_1,
 };
 
 enum planck_layers {
@@ -82,8 +83,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_planck_grid(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_PSCREEN,     LGUI(KC_PSCREEN),KC_TRANSPARENT, 
-    KC_DELETE,      KC_TRANSPARENT, AU_ON,          AU_OFF,         AU_TOG,         KC_ASUP,        KC_ASRP,        RGB_TOG,        RGB_VAI,        RGB_VAD,        KC_TRANSPARENT, RESET,          
-    KC_TRANSPARENT, KC_TRANSPARENT, MU_ON,          MU_OFF,         MU_TOG,         KC_ASDN,        TO(4),          RGB_MOD,        RGB_HUI,        RGB_HUD,        KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_DELETE,      KC_GRAVE,       KC_TILD,        KC_TRANSPARENT, KC_TRANSPARENT, KC_ASUP,        KC_ASRP,        RGB_TOG,        RGB_VAI,        RGB_VAD,        KC_TRANSPARENT, RESET,          
+    KC_TRANSPARENT, ST_MACRO_1,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_ASDN,        TO(4),          RGB_MOD,        RGB_HUI,        RGB_HUD,        KC_TRANSPARENT, KC_TRANSPARENT, 
     WEBUSB_PAIR,    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
   ),
 
@@ -110,7 +111,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
 
     [2] = { {32,255,234}, {86,255,255}, {86,255,255}, {86,255,255}, {86,255,255}, {172,255,255}, {86,255,255}, {86,255,255}, {86,255,255}, {86,255,255}, {172,255,255}, {0,0,0}, {0,255,255}, {13,255,255}, {13,255,255}, {172,255,255}, {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {172,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {86,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
-    [3] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {32,255,234}, {13,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {141,255,233}, {14,255,255}, {32,255,234}, {32,255,234}, {32,255,234}, {0,0,0}, {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {141,255,233}, {86,255,255}, {32,255,234}, {32,255,234}, {32,255,234}, {0,0,0}, {0,0,0}, {172,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+    [3] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {32,255,234}, {13,255,255}, {0,0,0}, {0,0,0}, {14,255,255}, {14,255,255}, {0,0,0}, {0,0,0}, {141,255,233}, {14,255,255}, {32,255,234}, {32,255,234}, {32,255,234}, {0,0,0}, {0,255,255}, {0,0,0}, {141,255,233}, {0,0,0}, {0,0,0}, {0,0,0}, {141,255,233}, {86,255,255}, {32,255,234}, {32,255,234}, {32,255,234}, {0,0,0}, {0,0,0}, {172,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
     [4] = { {0,0,0}, {0,0,0}, {0,0,0}, {13,255,255}, {0,0,0}, {86,255,255}, {13,255,255}, {13,255,255}, {172,255,255}, {13,255,255}, {13,255,255}, {13,255,255}, {0,0,0}, {13,255,255}, {0,0,0}, {13,255,255}, {13,255,255}, {172,255,255}, {0,0,0}, {0,0,0}, {0,255,255}, {13,255,255}, {13,255,255}, {13,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {13,255,255}, {0,0,0}, {13,255,255}, {86,255,255}, {0,0,0}, {86,255,255}, {13,255,255}, {13,255,255}, {13,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {172,255,255}, {31,255,255}, {146,224,255}, {13,255,255}, {172,255,255} },
 
@@ -163,6 +164,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ST_MACRO_0:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_UP) SS_DELAY(100) SS_TAP(X_HOME) SS_DELAY(100) SS_TAP(X_S) SS_DELAY(100) SS_TAP(X_SPACE)  SS_DELAY(100) SS_TAP(X_ENTER));
+
+    }
+    break;
+    case ST_MACRO_1:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI(SS_TAP(X_S)) SS_DELAY(100) SS_TAP(X_S) SS_DELAY(100) SS_TAP(X_N) SS_DELAY(100) SS_TAP(X_I)  SS_DELAY(100) SS_TAP(X_ENTER));
 
     }
     break;
